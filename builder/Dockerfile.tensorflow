@@ -1,0 +1,36 @@
+FROM continuumio/anaconda3 as anaconda
+
+FROM ubuntu:18.04
+
+# Setup Env
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install Prerequisites
+RUN apt-get -y update && apt-get install -y \
+    wget build-essential autoconf libtool libopenblas-dev libgflags-dev \
+    libgoogle-glog-dev libopencv-dev protobuf-compiler libleveldb-dev \
+    liblmdb-dev libhdf5-dev libsnappy-dev libboost-all-dev libssl-dev
+
+# Install DNNDK (for now expects that dnndk already exists at the current directory)
+COPY dnndk /opt/dnndk
+ENV DECENT_Q_TF_PKG /opt/dnndk/host_x86/decent-tf/ubuntu18.04/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl
+
+# Install Anaconda
+COPY --from=anaconda /opt/conda /opt/conda
+ENV PATH /opt/conda/bin:$PATH
+# Create the conda environment
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    . /opt/conda/etc/profile.d/conda.sh && \
+    conda create -n decent pip python=3.6 && \
+    echo "conda activate decent" > ~/.bashrc
+# All RUN commands should use the decent conda environment
+SHELL ["conda", "run", "-n", "decent", "/bin/bash", "-c"]
+# Install rest packages
+RUN pip install numpy opencv-python sklearn scipy progressbar2 ${DECENT_Q_TF_PKG}
+
+# Cleanup
+# RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* dnndk.tar.gz
+
+# Create work directory
+RUN install -d /workdir
+WORKDIR /workdir
