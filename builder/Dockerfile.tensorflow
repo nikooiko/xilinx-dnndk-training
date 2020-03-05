@@ -21,8 +21,9 @@ ENV PATH /opt/conda/bin:$PATH
 # Create the conda environment
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     . /opt/conda/etc/profile.d/conda.sh && \
+    conda init bash && \
     conda create -n decent pip python=3.6 && \
-    echo "conda activate decent" > ~/.bashrc
+    echo "conda activate decent" >> ~/.bashrc
 # All RUN commands should use the decent conda environment
 SHELL ["conda", "run", "-n", "decent", "/bin/bash", "-c"]
 # Install rest packages
