@@ -9,11 +9,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update && apt-get install -y \
     wget build-essential autoconf libtool libopenblas-dev libgflags-dev \
     libgoogle-glog-dev libopencv-dev protobuf-compiler libleveldb-dev \
-    liblmdb-dev libhdf5-dev libsnappy-dev libboost-all-dev libssl-dev
+    liblmdb-dev libhdf5-dev libsnappy-dev libboost-all-dev libssl-dev lsb-core
 
 # Install DNNDK (for now expects that dnndk already exists at the current directory)
 COPY dnndk /opt/dnndk
 ENV DECENT_Q_TF_PKG /opt/dnndk/host_x86/decent-tf/ubuntu18.04/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl
+# Install Host + ZedBoard tools but ignore failure (needed because GPU caffee tools fail)
+RUN cd /opt/dnndk/host_x86 && ./install.sh ZedBoard; exit 0;
 
 # Install Anaconda
 COPY --from=anaconda /opt/conda /opt/conda
