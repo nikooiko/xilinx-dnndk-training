@@ -11,11 +11,11 @@ Prerequisites:
 - Install [dnndk v3.1](https://www.xilinx.com/products/design-tools/ai-inference/ai-developer-hub.html#edge) at project's dnndk directory
 
 Tensorflow:
-- `docker build -t xilinx-dnndk-builder-tensorflow -f builder/Dockerfile.tensorflow builder`
+- `docker build -t xilinx-dnndk-builder-tensorflow -f builder/Dockerfile.tensorflow .`
 - `docker run --rm -it -v $(pwd):/workdir xilinx-dnndk-builder-tensorflow`
 
 Caffe:
-- `docker build -t xilinx-dnndk-builder-caffe -f builder/Dockerfile.caffe builder`
+- `docker build -t xilinx-dnndk-builder-caffe -f builder/Dockerfile.caffe .`
 - `docker run --rm -it -v $(pwd):/workdir xilinx-dnndk-builder-caffe`
 
 
