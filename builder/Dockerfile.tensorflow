@@ -29,7 +29,7 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
 # All RUN commands should use the decent conda environment
 SHELL ["conda", "run", "-n", "decent", "/bin/bash", "-c"]
 # Install rest packages
-RUN pip install numpy opencv-python sklearn scipy progressbar2 ${DECENT_Q_TF_PKG}
+RUN pip install matplotlib numpy opencv-python sklearn scipy progressbar2 ${DECENT_Q_TF_PKG}
 
 # Cleanup
 # RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* dnndk.tar.gz
