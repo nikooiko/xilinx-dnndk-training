@@ -12,7 +12,7 @@ Prerequisites:
 
 Tensorflow:
 - `docker build -t xilinx-dnndk-builder-tensorflow -f builder/Dockerfile.tensorflow .`
-- `docker run --rm -it -v $(pwd):/workdir xilinx-dnndk-builder-tensorflow`
+- `docker run --rm -it -v $(pwd):/workdir -v "$HOME/.Xauthority:/root/.Xauthority:rw" -e DISPLAY --net=host xilinx-dnndk-builder-tensorflow`
 
 Caffe:
 - `docker build -t xilinx-dnndk-builder-caffe -f builder/Dockerfile.caffe .`
