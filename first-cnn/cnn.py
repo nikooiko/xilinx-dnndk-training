@@ -105,5 +105,6 @@ class Cnn:
         prediction = cnn.predict(img)
         cnn.plot_result(img, prediction)
 
-cnn = Cnn()
-cnn.test_image()
+if __name__ == "__main__":
+    cnn = Cnn()
+    cnn.test_image()
