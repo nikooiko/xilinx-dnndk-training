@@ -60,11 +60,11 @@ class Cnn:
     def load(self, cp_name = DEFAULT_CP):
         cp_dir = "{}/{}".format(Cnn.CP_DIR, cp_name)
         if not os.path.exists(cp_dir):
-            print("Cp='{}' not found".format(cp_name))
+            print("Checkpoint='{}' not found".format(cp_name))
             return False # no checkpoint, unable to load
         checkpoints = os.listdir(cp_dir)
         if not len(checkpoints):
-            print("No models found under cp='{}'".format(cp_dir))
+            print("No models found under checkpoint='{}'".format(cp_dir))
             return False # no models found
         latest_name = max(checkpoints)
         latest_path = "{}/{}".format(cp_dir, latest_name)
