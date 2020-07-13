@@ -18,6 +18,8 @@ Caffe:
 - `docker build -t xilinx-dnndk-builder-caffe -f builder/Dockerfile.caffe .`
 - `docker run --rm -it -v $(pwd):/workdir xilinx-dnndk-builder-caffe`
 
+No DNNDK builds:
+- tf: `docker build -t xilinx-dnndk-builder-tensorflow-no-dnndk -f ./builder/Dockerfile.tensorflow-no-dnndk ./builder`
 
 ### Running Applications using ZedBoard
 Prerequisites:
